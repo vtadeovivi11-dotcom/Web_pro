@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Interactivo | Portafolio Física</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <style>
+        .project-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            margin-bottom: 4rem;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .project-section h2 {
+            color: var(--accent-cyan);
+            border-bottom: 2px solid var(--accent-magenta);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        /* Estilos de Snippet de Código */
+        .code-container {
+            background: #1e1e1e;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            overflow-x: auto;
+            border: 1px solid #333;
+            font-family: 'Courier New', Courier, monospace;
+            color: #d4d4d4;
+            line-height: 1.4;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            max-height: 400px;
+        }
+
+        .code-container .keyword {
+            color: #569cd6;
+        }
+
+        .code-container .function {
+            color: #dcdcaa;
+        }
+
+        .code-container .comment {
+            color: #6A9955;
+        }
+
+        .code-container .number {
+            color: #b5cea8;
+        }
+
+        .code-container .string {
+            color: #ce9178;
+        }
+
+        /* Estilos Ondas Senoidales */
+        .waves-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .waves-grid img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .waves-grid img:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-cyan);
+        }
+
+        .waves-theory {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .waves-theory h3 {
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+        }
+
+        /* Emulador Calculadora */
+        .emulator-container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent-blue);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="brand">
+            <img src="img/logo.png" alt="Portafolio Logo">
+            Portafolio Física
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="sobre.html">Mi Perfil</a></li>
+            <li><a href="portafolio.html" class="active">Portafolio</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main class="container" style="max-width: 1200px; width: 95%;">
+
+        <header class="portfolio-header">
+            <h1>Portafolio<br><em>Académico e Interactivo</em></h1>
+            <p>Demostración práctica de mis proyectos de ingeniería, software y física.</p>
+        </header>
+
+        <!-- PROYECTO 1: ARDUINO -->
+        <section class="project-section">
+            <h2>1. Implementación Arduino: Alarma de Sirena</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
+                Este proyecto utiliza un sensor ultrasónico para medir distancia. Si un objeto se acerca a menos de 5cm,
+                el zumbador (buzzer) se activa emitiendo una frecuencia alternante (alarma), y envía la información
+                a través del monitor serial.
+            </p>
+            <div class="code-container">
+                <pre><code><span class="comment">// Definición de pines</span>
+<span class="keyword">const int</span> pinBuzzer = <span class="number">8</span>;
+<span class="keyword">const int</span> pinTrig = <span class="number">9</span>;
+<span class="keyword">const int</span> pinEcho = <span class="number">10</span>;
+
+<span class="keyword">void</span> <span class="function">setup</span>() {
+  <span class="function">pinMode</span>(pinTrig, OUTPUT);
+  <span class="function">pinMode</span>(pinEcho, INPUT);
+  <span class="function">pinMode</span>(pinBuzzer, OUTPUT);
+  Serial.<span class="function">begin</span>(<span class="number">9600</span>);
+  Serial.<span class="function">println</span>(<span class="string">"Alarma de Sirena Iniciada..."</span>);
+}
+
+<span class="keyword">void</span> <span class="function">loop</span>() {
+  <span class="comment">// MIDE LA DISTANCIA</span>
+  <span class="function">digitalWrite</span>(pinTrig, LOW);
+  <span class="function">delayMicroseconds</span>(<span class="number">2</span>);
+  <span class="function">digitalWrite</span>(pinTrig, HIGH);
+  <span class="function">delayMicroseconds</span>(<span class="number">10</span>);
+  <span class="function">digitalWrite</span>(pinTrig, LOW);
+
+  <span class="keyword">long</span> duracion = <span class="function">pulseIn</span>(pinEcho, HIGH, <span class="number">30000</span>);
+  <span class="keyword">float</span> distancia = (duracion == <span class="number">0</span>) ? <span class="number">999</span> : duracion * <span class="number">0.0343</span> / <span class="number">2</span>;
+
+  <span class="comment">// LÓGICA DE ALARMA</span>
+  <span class="keyword">if</span> (distancia > <span class="number">0</span> && distancia <= <span class="number">5.0</span>) {
+    <span class="function">tone</span>(pinBuzzer, <span class="number">800</span>); <span class="function">delay</span>(<span class="number">200</span>);
+    <span class="function">tone</span>(pinBuzzer, <span class="number">1200</span>); <span class="function">delay</span>(<span class="number">200</span>);
+  } <span class="keyword">else</span> {
+    <span class="function">noTone</span>(pinBuzzer);
+    <span class="function">delay</span>(<span class="number">150</span>);
+  }
+}</code></pre>
+            </div>
+
+            <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Video de Demostración</h3>
+            <div style="text-align: center;">
+                <video width="100%"
+                    style="max-width: 600px; border-radius: 8px; border: 1px solid var(--accent-magenta);" controls>
+                    <source src="img/video_arduino.mp4" type="video/mp4">
+                    Tu navegador no soporta el video.
+                </video>
+            </div>
+        </section>
+
+        <!-- PROYECTO 2: CALCULADORA -->
+        <section class="project-section">
+            <h2>2. Calculadora de Física Integral</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
+                Este es un sistema exhaustivo desarrollado en <strong>C++</strong> para resolver ecuaciones de Física
+                Clásica, Ondas, Electromagnetismo y Termodinámica. Abajo te muestro un fragmento de la lógica del
+                programa matriz, y un emulador interactivo web simulando su función <em>"Física Clásica: Velocidad
+                    Lineal"</em>.
+            </p>
+
+            <div class="code-container">
+                <pre><code><span class="comment">// C++ Calculadora Matriz Base</span>
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="comment">// Ejemplo Módulo 1. Velocidad Lineal (v = d/t)</span>
+    <span class="keyword">int</span> sub = <span class="function">pedirEntero</span>(<span class="string">"Seleccione ecuacion: "</span>);
+    <span class="keyword">if</span> (sub == <span class="number">1</span>) { 
+        <span class="keyword">int</span> s = <span class="function">pedirEntero</span>(<span class="string">"Calcular: 1.Velocidad, 2.Distancia, 3.Tiempo: "</span>);
+        <span class="keyword">if</span> (s == <span class="number">1</span>) cout << <span class="string">"Vel."</span> << <span class="function">pedir</span>(<span class="string">"Distancia"</span>)/<span class="function">pedir</span>(<span class="string">"Tiempo"</span>);
+        <span class="keyword">else if</span> (s == <span class="number">2</span>) cout << <span class="string">"Dist."</span> << <span class="function">pedir</span>(<span class="string">"Velocidad"</span>)*<span class="function">pedir</span>(<span class="string">"Tiempo"</span>);
+        <span class="keyword">else</span> cout << <span class="string">"Tiempo="</span> << <span class="function">pedir</span>(<span class="string">"Distancia"</span>)/<span class="function">pedir</span>(<span class="string">"Velocidad"</span>);
+    }
+}
+</code></pre>
+            </div>
+
+            <div class="emulator-container">
+                <h3 style="color: var(--accent-cyan); text-align: center; margin-bottom: 1rem;">▶ Emulador C++: Ec.
+                    Velocidad Lineal</h3>
+
+                <div class="form-group">
+                    <label>Distancia (m)</label>
+                    <input type="number" id="distancia" placeholder="Ej. 100">
+                </div>
+                <div class="form-group">
+                    <label>Tiempo (s)</label>
+                    <input type="number" id="tiempo" placeholder="Ej. 9.5">
+                </div>
+                <button onclick="calcularFisica()" class="btn btn-primary" style="width: 100%;">Computar Velocidad (v =
+                    d/t)</button>
+
+                <div style="margin-top: 1.5rem; text-align: center;">
+                    <strong style="color: white; font-size: 1.2rem;">Resultado: <span id="resultado_fisico"
+                            style="color: var(--accent-magenta);">0.00</span> m/s</strong>
+                </div>
+            </div>
+
+            <script>
+                function calcularFisica() {
+                    const dist = parseFloat(document.getElementById('distancia').value);
+                    const tiem = parseFloat(document.getElementById('tiempo').value);
+                    const out = document.getElementById('resultado_fisico');
+
+                    if (isNaN(dist) || isNaN(tiem) || tiem === 0) out.innerText = "Error";
+                    else out.innerText = (dist / tiem).toFixed(2);
+                }
+            </script>
+        </section>
+
+        <!-- PROYECTO 3: ONDAS SENOIDALES -->
+        <section class="project-section">
+            <h2>3. Fundamentos Físicos de las Ondas</h2>
+
+            <div class="waves-theory">
+                <p>Las oscilaciones en la naturaleza (como el sonido y la luz) se representan matemáticamente usando
+                    trigonometría pura. A este tipo de representaciones armónicas se les conoce como el estudio de
+                    <strong>Seno, Coseno y Tangente</strong>.</p>
+
+                <h3 style="color: var(--accent-cyan);">¿Qué son y por qué suceden?</h3>
+                <p>Las razones trigonométricas (Sen, Cos, Tan) describen las relaciones entre los lados de un triángulo
+                    rectángulo circunscrito en un <em>Círculo Unitario</em>. Cuando un punto da la vuelta lentamente
+                    alrededor de ese círculo en el tiempo (un movimiento circular uniforme), <strong>la variación de su
+                        altura a lo largo del tiempo</strong> dibuja sistemática y perfectamente un patrón ondulado:
+                    <em>La onda senoidal</em>. Es por esto que los péndulos, resortes y ondas comparten estas
+                    ecuaciones.</p>
+
+                <ul>
+                    <li><strong style="color:var(--text-primary);">Seno (Sen):</strong> Representa el valor en el eje
+                        'Y' (vertical) del círculo. Su onda comienza partiendo del origen $0$.</li>
+                    <li><strong style="color:var(--text-primary);">Coseno (Cos):</strong> Representa el valor en el eje
+                        'X' (horizontal). Si dibujas su onda en el tiempo, comienza desde su punto de amplitud máxima
+                        $1$. Es la misma onda del Seno, solo que desfasada por 90 grados.</li>
+                    <li><strong style="color:var(--text-primary);">Tangente (Tan):</strong> Es el cociente entre el Seno
+                        y el Coseno. Su onda no es uniforme ni continua, ya que en ciertos ángulos el Coseno se vuelve
+                        cero, lo cual dispara la gráfica hacia el infinito en patrones repetitivos conocidos como
+                        asíntotas.</li>
+                </ul>
+            </div>
+
+            <h3 style="color: var(--text-primary); text-align: center; margin-top: 3rem;">Galería de Análisis de Señales
+            </h3>
+            <div class="waves-grid">
+                <img src="img/honda1.jpg" alt="Gráfica de onda senoidal 1">
+                <img src="img/honda2.jpg" alt="Gráfica de onda senoidal 2">
+                <img src="img/honda3.jpg" alt="Gráfica de onda senoidal 3">
+                <img src="img/honda4.jpg" alt="Gráfica de onda senoidal 4">
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Universidad UNID.<br><span style="font-size: 0.8em; color: var(--text-secondary);">Víctor Tadeo
+                Villalobos Villanueva, estudiante de Ing. Sistemas.</span></p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

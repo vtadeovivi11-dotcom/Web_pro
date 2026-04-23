@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Portafolio Física</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <style>
+        .contact-info-panel {
+            background: rgba(11, 12, 16, 0.5);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 2rem;
+            border: 1px solid var(--accent-magenta);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.1);
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+        .contact-icon {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="brand">
+            <img src="img/logo.png" alt="Portafolio Logo">
+            Portafolio Física
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="sobre.html">Mi Perfil</a></li>
+            <li><a href="portafolio.html">Portafolio</a></li>
+            <li><a href="contacto.html" class="active">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main class="container" style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+        <div class="glass-panel" style="width: 100%; max-width: 600px;">
+            <h1 class="text-gradient-magenta" style="text-align: center;">Información de Contacto</h1>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">¿Te interesa saber más sobre mis proyectos? Puedes comunicarte conmigo a través de los siguientes canales:</p>
+            
+            <div class="contact-info-panel">
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <div>
+                        <strong>Correo Electrónico:</strong><br>
+                        vtadeo11@gmail.com
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">📱</span>
+                    <div>
+                        <strong>Teléfono:</strong><br>
+                        987 800 9517
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <div>
+                        <strong>Ubicación Académica:</strong><br>
+                        UNID (Universidad Interamericana para el Desarrollo)
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Simulador de formulario si es necesario enviar un correo rápido (opcional, dejamos este por interfaz) -->
+            <form id="contact-form" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1rem; color: var(--accent-cyan);">O envíame un mensaje directo:</h3>
+                <div class="form-group">
+                    <input type="text" id="nombre" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="mensaje" rows="3" placeholder="Tu mensaje..." required></textarea>
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensaje Rápido</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Universidad UNID.<br><span style="font-size: 0.8em; color: var(--text-secondary);">Víctor Tadeo Villalobos Villanueva, estudiante de Ing. Sistemas.</span></p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
